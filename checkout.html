@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout seguro — VibeMarket</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Producción: <script src="https://js.stripe.com/v3/"></script> y SDK de PayPal / Mercado Pago -->
+</head>
+<body data-page="checkout">
+
+<main class="container">
+  <form class="co-layout" id="coForm" novalidate>
+    <div>
+      <!-- 1. Contacto -->
+      <section class="co-block">
+        <h3><span class="num">1</span> Contacto</h3>
+        <div class="seg" role="tablist" id="modeSeg">
+          <button type="button" class="active" data-mode="guest">Comprar como invitado</button>
+          <button type="button" data-mode="login">Iniciar sesión</button>
+        </div>
+        <div id="guestBox">
+          <div class="grid-2">
+            <div class="field"><label for="email">Correo electrónico</label><input class="input" id="email" name="email" type="email" required autocomplete="email" placeholder="tu@correo.com"></div>
+            <div class="field"><label for="phone">Teléfono (WhatsApp)</label><input class="input" id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="55 1234 5678"></div>
+          </div>
+          <label class="check"><input type="checkbox" name="waUpdates" checked> Recibir actualizaciones del envío por WhatsApp</label>
+          <label class="check"><input type="checkbox" name="createAccount"> Crear una cuenta para rastrear mis pedidos</label>
+        </div>
+        <div id="loginBox" hidden>
+          <div class="grid-2">
+            <div class="field"><label for="lEmail">Correo</label><input class="input" id="lEmail" type="email" placeholder="tu@correo.com"></div>
+            <div class="field"><label for="lPass">Contraseña</label><input class="input" id="lPass" type="password" placeholder="••••••••"></div>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="loginBtn">Entrar</button>
+        </div>
+        <div id="loggedBox" hidden class="small"></div>
+      </section>
+
+      <!-- 2. Envío -->
+      <section class="co-block">
+        <h3><span class="num">2</span> Dirección de envío</h3>
+        <div class="grid-2">
+          <div class="field"><label for="fname">Nombre</label><input class="input" id="fname" name="fname" required autocomplete="given-name"></div>
+          <div class="field"><label for="lname">Apellidos</label><input class="input" id="lname" name="lname" required autocomplete="family-name"></div>
+        </div>
+        <div class="field"><label for="street">Calle y número</label><input class="input" id="street" name="street" required autocomplete="address-line1" placeholder="Av. Álvaro Obregón 120, Int. 4"></div>
+        <div class="grid-3">
+          <div class="field"><label for="cp">Código postal</label><input class="input" id="cp" name="cp" required inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="06700"></div>
+          <div class="field"><label for="colonia">Colonia</label><input class="input" id="colonia" name="colonia" required></div>
+          <div class="field"><label for="city">Ciudad</label><input class="input" id="city" name="city" required autocomplete="address-level2"></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label for="state">Estado</label>
+            <select class="input" id="state" name="state" required></select></div>
+          <div class="field"><label for="ref">Referencias (opcional)</label><input class="input" id="ref" name="ref" placeholder="Portón verde, entre calles…"></div>
+        </div>
+        <h4 style="font-family:var(--font-sans);font-size:.95rem;font-weight:600;margin:10px 0 0">Método de envío</h4>
+        <div id="coShip" class="ship-options"><p class="small muted">Ingresa tu código postal para ver opciones.</p></div>
+      </section>
+
+      <!-- 3. Pago -->
+      <section class="co-block">
+        <h3><span class="num">3</span> Pago <span class="sim-badge" style="margin-left:auto">Modo simulación</span></h3>
+        <div class="banner" style="background:var(--bg);border:1px dashed var(--line);display:block;font-size:.86rem;margin-bottom:16px"><strong>Pago simulado para evaluación académica:</strong> no se realizan cargos reales. El pedido sí se registra en la base de datos.<br>Tarjeta aprobada: <code>4242 4242 4242 4242</code> · Rechazada: <code>4000 0000 0000 0002</code> · Fondos insuficientes: <code>4000 0000 0000 9995</code> · cualquier fecha futura y CVC de 3 dígitos (4 en Amex).</div>
+        <div class="pay-methods">
+          <div class="pay-method">
+            <label><input type="radio" name="pay" value="card" checked> <strong>Tarjeta de crédito o débito</strong><span class="pm-logos"><span>VISA</span><span>MC</span><span>AMEX</span></span></label>
+            <div class="pm-body">
+              <!-- En producción este bloque se reemplaza por Stripe Elements (PCI-DSS). Nunca enviar datos de tarjeta a nuestro servidor. -->
+              <div class="card-element">
+                <div class="field"><label for="ccName">Nombre en la tarjeta</label><input class="input" id="ccName" autocomplete="cc-name"></div>
+                <div class="field"><label for="ccNum">Número de tarjeta</label><input class="input" id="ccNum" inputmode="numeric" autocomplete="cc-number" placeholder="4242 4242 4242 4242" maxlength="19"></div>
+                <div class="grid-2">
+                  <div class="field" style="margin:0"><label for="ccExp">Vencimiento</label><input class="input" id="ccExp" placeholder="MM/AA" maxlength="5" autocomplete="cc-exp"></div>
+                  <div class="field" style="margin:0"><label for="ccCvc">CVC</label><input class="input" id="ccCvc" placeholder="123" maxlength="4" inputmode="numeric" autocomplete="cc-csc"></div>
+                </div>
+              </div>
+              <div class="field" style="margin:14px 0 0"><label for="msi">Meses sin intereses</label>
+                <select class="input" id="msi"><option>Pago de contado</option><option>3 MSI</option><option>6 MSI</option></select></div>
+              <div class="stripe-note">🔒 Validación simulada (Luhn, vencimiento, CVC y 3D Secure). En producción se reemplaza por Stripe Elements.</div>
+            </div>
+          </div>
+          <div class="pay-method">
+            <label><input type="radio" name="pay" value="paypal"> <strong>PayPal</strong><span class="pm-logos"><span>PayPal</span></span></label>
+            <div class="pm-body"><p class="small muted">Se abrirá una ventana simulada de PayPal para aprobar el pago.</p></div>
+          </div>
+          <div class="pay-method">
+            <label><input type="radio" name="pay" value="mercadopago"> <strong>Mercado Pago</strong><span class="pm-logos"><span>MP</span></span></label>
+            <div class="pm-body"><p class="small muted">Se abrirá una ventana simulada de Mercado Pago para aprobar el pago.</p></div>
+          </div>
+          <div class="pay-method">
+            <label><input type="radio" name="pay" value="oxxo"> <strong>Efectivo en OXXO</strong><span class="pm-logos"><span>OXXO</span></span></label>
+            <div class="pm-body"><p class="small muted">Generaremos una referencia de pago (simulada) válida por 72 horas. El administrador confirma el pago desde su panel y entonces se prepara tu pedido.</p></div>
+          </div>
+        </div>
+        <label class="check" style="margin-top:16px"><input type="checkbox" id="billing"> Requiero factura (CFDI 4.0)</label>
+        <div id="billingBox" hidden class="grid-2" style="margin-top:10px">
+          <div class="field"><label for="rfc">RFC</label><input class="input" id="rfc" maxlength="13"></div>
+          <div class="field"><label for="regimen">Régimen fiscal</label><select class="input" id="regimen"><option>612 - Personas Físicas con Actividades Empresariales</option><option>601 - General de Ley Personas Morales</option><option>626 - RESICO</option></select></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- RESUMEN -->
+    <aside class="summary">
+      <h3>Resumen del pedido</h3>
+      <div id="coItems"></div>
+      <div class="inline-form" id="coCoupon" style="margin:14px 0"></div>
+      <div style="border-top:1px solid var(--line);padding-top:10px">
+        <div class="sum-row"><span>Subtotal</span><span id="cSub"></span></div>
+        <div class="sum-row" id="cDiscRow" hidden><span>Descuento <span class="tag tag-forest" id="cCode"></span></span><span class="discount" id="cDisc"></span></div>
+        <div class="sum-row"><span>Envío</span><span id="cShip"></span></div>
+        <div class="sum-row total"><span>Total</span><span id="cTotal"></span></div>
+        <p class="small muted" style="margin:0 0 16px">IVA incluido: <span id="cIva"></span></p>
+      </div>
+      <label class="check small" style="margin-bottom:14px"><input type="checkbox" id="terms" required> Acepto los <a href="support.html#politicas" target="_blank" class="link-btn">términos</a> y el <a href="support.html#politicas" target="_blank" class="link-btn">aviso de privacidad</a></label>
+      <button class="btn btn-primary btn-block" id="placeOrder" type="submit">Pagar ahora</button>
+      <p class="msg-inline err" id="coError"></p>
+      <div class="policy-box">
+        <div>🚚<span><strong>Envío:</strong> preparamos tu pedido en 24–48 h. Recibirás la guía por correo y WhatsApp.</span></div>
+        <div>↩<span><strong>Devoluciones:</strong> 30 días sin costo. Piezas de edición limitada sólo por defecto.</span></div>
+        <div>🔒<span><strong>Seguridad:</strong> nunca guardamos el número completo de tu tarjeta; solo los últimos 4 dígitos para tu comprobante.</span></div>
+      </div>
+      <details class="policy"><summary>Política de envíos</summary><p class="muted">Enviamos a toda la República Mexicana con Estafeta, DHL y puntos Pickit. Los tiempos son estimados en días hábiles a partir de la confirmación del pago.</p></details>
+      <details class="policy"><summary>Política de devoluciones</summary><p class="muted">Solicita tu devolución desde Mi cuenta. Te enviamos una guía prepagada y el reembolso se refleja en 5–10 días hábiles al método de pago original.</p></details>
+    </aside>
+  </form>
+</main>
+
+<div class="modal-backdrop" id="successModal" role="dialog" aria-modal="true" aria-labelledby="okTitle">
+  <div class="modal">
+    <div class="check-ico" id="okIco"></div>
+    <h2 id="okTitle">¡Gracias por tu compra!</h2>
+    <p class="muted" id="okText"></p>
+    <div style="display:grid;gap:10px;margin-top:24px">
+      <a href="account.html#orders" class="btn btn-primary">Ver mi pedido</a>
+      <a href="index.html" class="btn btn-ghost">Seguir explorando</a>
+    </div>
+  </div>
+</div>
+
+<!-- Configuración de Supabase (la genera "npm run build" a partir de las variables de entorno) -->
+<script src="assets/js/env.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/images.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pricing.js"></script>
+<script src="assets/js/checkout.js"></script>
+</body>
+</html>

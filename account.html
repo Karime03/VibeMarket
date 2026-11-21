@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi cuenta — VibeMarket</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="account">
+
+<main class="container" id="accountRoot">
+  <!-- Dashboard -->
+  <div class="account-layout" id="dashView">
+    <nav class="acc-nav" aria-label="Mi cuenta" id="accNav">
+      <div class="acc-user"><span class="avatar" id="accAvatar"></span><div><strong id="accName"></strong><div class="small muted" id="accSince"></div></div></div>
+    </nav>
+    <div>
+      <section class="acc-panel" id="p-overview"></section>
+      <section class="acc-panel" id="p-orders"></section>
+      <section class="acc-panel" id="p-tracking"></section>
+      <section class="acc-panel" id="p-returns"></section>
+      <section class="acc-panel" id="p-reviews"></section>
+      <section class="acc-panel" id="p-wishlist"></section>
+      <section class="acc-panel" id="p-profile"></section>
+      <section class="acc-panel" id="p-addresses"></section>
+      <section class="acc-panel" id="p-prefs"></section>
+    </div>
+  </div>
+</main>
+
+<div class="modal-backdrop" id="accModal" role="dialog" aria-modal="true"><div class="modal mini-modal" id="accModalBody"></div></div>
+
+<!-- Configuración de Supabase (la genera "npm run build" a partir de las variables de entorno) -->
+<script src="assets/js/env.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/images.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/account.js"></script>
+</body>
+</html>

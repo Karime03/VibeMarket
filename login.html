@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión — VibeMarket</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="login" data-shell="panel">
+
+<div class="auth-page">
+  <aside class="auth-side">
+    <a href="index.html" class="logo" id="authLogo" style="color:#A9C2B0"></a>
+    <h1 id="sideTitle">Un marketplace para quienes crean y quienes eligen con intención.</h1>
+    <ul id="sideList"></ul>
+    <p class="small" style="opacity:.7;position:relative;z-index:1">© 2026 VibeMarket · <a href="support.html#politicas" style="text-decoration:underline">Privacidad</a></p>
+  </aside>
+
+  <main class="auth-main">
+    <!-- Paso 1: elegir rol -->
+    <section id="stepRole">
+      <a href="index.html" class="link-btn" style="margin-bottom:24px;display:inline-block">← Volver a la tienda</a>
+      <h2>¿Cómo quieres iniciar sesión?</h2>
+      <p class="muted">Cada tipo de cuenta tiene su propia pantalla y permisos.</p>
+      <div class="role-grid" id="roleGrid"></div>
+    </section>
+
+    <!-- Paso 2: formulario -->
+    <section id="stepForm" hidden>
+      <button class="link-btn" id="backRole" style="margin-bottom:24px">← Cambiar tipo de cuenta</button>
+      <span class="eyebrow" id="roleEyebrow"></span>
+      <h2 id="formTitle"></h2>
+      <div class="seg" id="modeSeg" style="display:flex;max-width:380px">
+        <button type="button" class="active" data-m="login" style="flex:1">Iniciar sesión</button>
+        <button type="button" data-m="register" style="flex:1">Crear cuenta</button>
+      </div>
+      <div class="demo-box" id="demoBox"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field"><label for="lEmail">Correo electrónico</label><input class="input" id="lEmail" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="lPass">Contraseña</label><input class="input" id="lPass" type="password" autocomplete="current-password" required></div>
+        <p class="err-text" id="loginErr"></p>
+        <button class="btn btn-primary btn-block">Entrar</button>
+        <p class="small muted center" style="margin-top:12px"><a href="#" class="link-btn" id="forgot">¿Olvidaste tu contraseña?</a></p>
+      </form>
+
+      <form id="registerForm" novalidate hidden></form>
+    </section>
+  </main>
+</div>
+
+<!-- Configuración de Supabase (la genera "npm run build" a partir de las variables de entorno) -->
+<script src="assets/js/env.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/images.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/login.js"></script>
+</body>
+</html>

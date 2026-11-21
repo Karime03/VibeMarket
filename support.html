@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayuda y soporte — VibeMarket</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="support">
+
+<main>
+  <section class="support-hero">
+    <div class="container">
+      <span class="eyebrow">Centro de ayuda</span>
+      <h1>¿Cómo podemos ayudarte?</h1>
+      <p class="muted">Respuestas rápidas, personas reales. Respondemos en menos de 2 horas en horario laboral.</p>
+      <div class="search"><span id="faqSearchIco"></span><input type="search" id="faqSearch" placeholder="Busca: devoluciones, envío, factura…" aria-label="Buscar en ayuda"></div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="help-cards" id="helpCards"></div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head"><div><span class="eyebrow">FAQ</span><h2>Preguntas frecuentes</h2></div></div>
+      <div class="faq-layout">
+        <div class="faq-cats" id="faqCats"></div>
+        <div id="faqList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section" id="contacto" style="background:var(--surface);border-block:1px solid var(--line)">
+    <div class="container contact-grid">
+      <div>
+        <span class="eyebrow">Contacto</span><h2>Escríbenos</h2>
+        <p class="muted">Tu mensaje llega directo al equipo de VibeMarket y te respondemos por correo. Si es sobre un pedido, incluye su número.</p>
+        <form id="contactForm" novalidate>
+          <div class="grid-2">
+            <div class="field"><label for="cName">Nombre</label><input class="input" id="cName" required></div>
+            <div class="field"><label for="cEmail">Correo</label><input class="input" id="cEmail" type="email" required></div>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label for="cTopic">Motivo</label>
+              <select class="input" id="cTopic"><option>Estado de mi pedido</option><option>Devolución o cambio</option><option>Producto dañado</option><option>Facturación</option><option>Quiero vender en VibeMarket</option><option>Otro</option></select></div>
+            <div class="field"><label for="cOrder">No. de pedido (opcional)</label><input class="input" id="cOrder" placeholder="VM-10001"></div>
+          </div>
+          <div class="field"><label for="cMsg">Mensaje</label><textarea class="input" id="cMsg" required></textarea></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn btn-primary">Enviar mensaje</button><a class="btn btn-ghost" id="formGmail" target="_blank" rel="noopener">Enviar por Gmail</a></div>
+          <p class="msg-inline" id="contactMsg"></p>
+        </form>
+      </div>
+      <div class="contact-channels" id="channels"></div>
+    </div>
+  </section>
+
+  <!-- POLÍTICAS -->
+  <section class="section" id="politicas">
+    <div class="container policy-tabs">
+      <span class="eyebrow">Legal</span><h2>Políticas claras</h2>
+      <div class="tabs" role="tablist">
+        <button class="active" data-tab="returns">Devoluciones</button>
+        <button data-tab="shipping">Envíos</button>
+        <button data-tab="privacy">Aviso de privacidad</button>
+        <button data-tab="terms">Términos y condiciones</button>
+      </div>
+      <div class="tab-panel active" id="tab-returns">
+        <p>Queremos que ames lo que compras. Si no es así, tienes <strong>30 días naturales</strong> desde la entrega para solicitar una devolución.</p>
+        <h3>Cómo devolver</h3>
+        <ol><li>Entra a <a href="account.html#orders" class="link-btn">Mi cuenta › Pedidos</a> y selecciona “Devolver”.</li><li>Elige los productos y el motivo. Te enviamos una guía prepagada.</li><li>Empaca y entrega en cualquier sucursal de la paquetería.</li><li>Recibirás tu reembolso en 5–10 días hábiles tras la inspección.</li></ol>
+        <h3>Excepciones</h3>
+        <p>Productos de cuidado personal abiertos, piezas personalizadas y ediciones limitadas sólo aplican por defecto de fabricación.</p>
+      </div>
+      <div class="tab-panel" id="tab-shipping">
+        <p>Enviamos a toda la República Mexicana. Cada marca prepara su pedido en 24–48 h hábiles.</p>
+        <h3>Tarifas</h3>
+        <p>Estándar (3–5 días): $99 MXN · Express (1–2 días): $189 MXN · Punto Pickit: gratis. Envío estándar gratis desde $999 MXN.</p>
+        <h3>Pedidos con varias marcas</h3>
+        <p>Si tu pedido incluye productos de distintas marcas, pueden llegar en paquetes separados. Pagas un solo envío.</p>
+      </div>
+      <div class="tab-panel" id="tab-privacy">
+        <p>VibeMarket S.A. de C.V., con domicilio en Ciudad de México, es responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).</p>
+        <h3>Datos que recabamos</h3>
+        <p>Identificación, contacto, domicilio de envío y datos fiscales cuando solicitas factura. No almacenamos datos completos de tarjetas: el pago lo procesan proveedores certificados PCI-DSS.</p>
+        <h3>Derechos ARCO</h3>
+        <p>Puedes ejercer tus derechos de Acceso, Rectificación, Cancelación y Oposición escribiendo a privacidad@vibemarket.mx.</p>
+      </div>
+      <div class="tab-panel" id="tab-terms">
+        <p>Al usar VibeMarket aceptas estos términos. VibeMarket actúa como intermediario entre compradores y marcas independientes (vendedores), quienes son responsables de la calidad y descripción de sus productos.</p>
+        <h3>Precios y pagos</h3>
+        <p>Todos los precios están en pesos mexicanos e incluyen IVA. Nos reservamos el derecho de cancelar pedidos con errores evidentes de precio, con reembolso total.</p>
+        <h3>Vendedores</h3>
+        <p>Las marcas pagan una comisión por venta concretada. Las condiciones completas están en el Acuerdo de Vendedor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFORMACIÓN DE LA EMPRESA -->
+  <section class="section" id="empresa" style="background:var(--sand)">
+    <span id="nosotros"></span>
+    <div class="container about">
+      <div>
+        <span class="eyebrow">Información de la empresa</span>
+        <h2>Un escaparate para quienes empiezan</h2>
+        <p><strong>VibeMarket</strong> es un marketplace mexicano que reúne a marcas emergentes de diseño independiente (moda, hogar, belleza, joyería y papelería) con compradores que buscan piezas con historia.</p>
+        <div class="values">
+          <div><strong>Curaduría real</strong><span class="small muted">Revisamos cada marca y cada producto antes de publicarlo.</span></div>
+          <div><strong>Comisión justa</strong><span class="small muted" id="valCommission"></span></div>
+          <div><strong>Compra protegida</strong><span class="small muted">Devoluciones gratis durante 30 días.</span></div>
+          <div><strong>Atención cercana</strong><span class="small muted">Por WhatsApp, correo y chat.</span></div>
+        </div>
+        <div class="card" style="margin-top:28px" id="vende">
+          <strong style="font-family:var(--font-serif);font-size:1.15rem;font-weight:450">¿Tienes una marca emergente?</strong>
+          <p class="small muted" style="margin:6px 0 14px">Registra tu marca, sube tus productos con fotos, precios y stock, y empieza a vender cuando el equipo apruebe tu solicitud.</p>
+          <a href="login.html?role=vendor" class="btn btn-accent btn-sm">Quiero vender</a>
+        </div>
+      </div>
+      <div class="card company-card">
+        <h3 style="margin-bottom:6px">Datos de contacto</h3>
+        <p class="small muted" style="margin-bottom:16px">Elige el canal que prefieras; todos te llevan directo con nosotros.</p>
+        <dl class="company-list" id="companyList"></dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Configuración de Supabase (la genera "npm run build" a partir de las variables de entorno) -->
+<script src="assets/js/env.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/images.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/support.js"></script>
+</body>
+</html>

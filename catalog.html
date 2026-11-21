@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo — VibeMarket</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="catalog">
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" id="crumbs" aria-label="Migas de pan"></nav>
+      <h1 id="catTitle" style="font-size:clamp(2rem,4vw,3rem)">Catálogo</h1>
+      <p class="muted" id="catDesc" style="max-width:560px">Todo el diseño independiente de nuestras marcas emergentes en un solo lugar.</p>
+      <div class="cat-pills" id="catPills"></div>
+    </div>
+  </section>
+
+  <div class="container catalog-layout">
+    <!-- FILTROS -->
+    <aside class="filters" id="filters" aria-label="Filtros">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h3 style="margin:0">Filtros</h3>
+        <button class="link-btn" id="clearFilters">Limpiar todo</button>
+      </div>
+      <div class="filter-group"><h4>Categorías</h4><ul class="cat-tree" id="catTree"></ul></div>
+      <div class="filter-group">
+        <h4>Precio <span class="muted" id="priceLabel" style="text-transform:none;letter-spacing:0;font-weight:400"></span></h4>
+        <div class="price-inputs"><input class="input" type="number" id="pMin" placeholder="Mín" min="0"><span>—</span><input class="input" type="number" id="pMax" placeholder="Máx" min="0"></div>
+        <input type="range" id="pRange" min="100" max="1500" step="50" value="1500" aria-label="Precio máximo" style="margin-top:12px">
+      </div>
+      <div class="filter-group"><h4>Marca</h4><div id="brandFilters"></div></div>
+      <div class="filter-group"><h4>Características</h4><div id="featFilters"></div></div>
+      <div class="filter-group"><h4>Color</h4><div id="colorFilters" style="display:flex;gap:8px;flex-wrap:wrap"></div></div>
+      <div class="filter-group">
+        <h4>Calificación</h4>
+        <label class="check"><input type="radio" name="rating" value="0" checked> Todas</label>
+        <label class="check"><input type="radio" name="rating" value="4.8"> <span class="stars"><i>★★★★★</i></span> 4.8+</label>
+        <label class="check"><input type="radio" name="rating" value="4.5"> <span class="stars"><i>★★★★☆</i></span> 4.5+</label>
+      </div>
+      <div class="filter-group">
+        <label class="check"><input type="checkbox" id="fDeals"> Solo ofertas</label>
+        <label class="check"><input type="checkbox" id="fStock"> Solo con stock disponible</label>
+      </div>
+      <button class="btn btn-primary btn-block filter-toggle" id="applyMobile" style="margin-top:16px">Ver resultados</button>
+    </aside>
+
+    <!-- RESULTADOS -->
+    <section aria-live="polite">
+      <div class="toolbar">
+        <div style="display:flex;gap:12px;align-items:center">
+          <button class="btn btn-ghost btn-sm filter-toggle" id="openFilters">Filtros</button>
+          <span class="muted small" id="resultCount"></span>
+        </div>
+        <div class="toolbar-right">
+          <label for="sortSel" class="small muted">Ordenar</label>
+          <select id="sortSel">
+            <option value="popular">Más populares</option>
+            <option value="newest">Más nuevos</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="rating">Mejor calificados</option>
+            <option value="discount">Mayor descuento</option>
+          </select>
+          <div class="view-toggle" role="group" aria-label="Vista">
+            <button id="viewGrid" class="active" aria-label="Cuadrícula"></button>
+            <button id="viewList" aria-label="Lista"></button>
+          </div>
+        </div>
+      </div>
+      <div class="active-filters" id="activeFilters"></div>
+      <div class="products-grid" id="results"></div>
+    </section>
+  </div>
+</main>
+
+<!-- Configuración de Supabase (la genera "npm run build" a partir de las variables de entorno) -->
+<script src="assets/js/env.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/images.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/catalog.js"></script>
+</body>
+</html>

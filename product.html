@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producto — VibeMarket</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="product">
+
+<main class="container">
+  <nav class="breadcrumbs" id="crumbs" style="margin-top:28px" aria-label="Migas de pan"></nav>
+
+  <section class="pdp">
+    <!-- Galería -->
+    <div class="gallery">
+      <div class="thumbs" id="thumbs"></div>
+      <div class="zoom-box" id="zoomBox">
+        <img id="mainImg" alt="">
+        <div class="zoom-lens" id="zoomLens"></div>
+        <span class="zoom-hint" id="zoomHint"></span>
+      </div>
+    </div>
+
+    <!-- Información -->
+    <div class="pdp-info">
+      <a class="pdp-brand" id="brandLink"></a>
+      <h1 id="pName"></h1>
+      <a href="#reviews" class="stars" id="pRating" style="font-size:.9rem"></a>
+      <div class="pdp-price" id="pPrice"></div>
+      <p class="small muted" id="pInstallments"></p>
+      <p id="pShort" style="color:var(--ink-2)"></p>
+
+      <div class="opt-label"><span>Color: <strong id="colorName"></strong></span></div>
+      <div class="color-opts" id="colorOpts"></div>
+
+      <div class="opt-label"><span>Tamaño: <strong id="sizeName"></strong></span><a href="support.html#faq" class="link-btn">Guía de tallas</a></div>
+      <div class="size-opts" id="sizeOpts"></div>
+
+      <div class="stock" id="stockBox" aria-live="polite"></div>
+
+      <div class="buy-row">
+        <div class="qty"><button id="qMinus" aria-label="Menos">−</button><input id="qInput" type="number" value="1" min="1" aria-label="Cantidad"><button id="qPlus" aria-label="Más">+</button></div>
+        <button class="btn btn-primary" id="addBtn">Agregar al carrito</button>
+        <button class="icon-btn" id="wishBtn" style="border:1px solid var(--line);width:50px;height:50px" aria-label="Favoritos"></button>
+      </div>
+      <button class="btn btn-outline btn-block" id="buyNow" style="margin-top:10px">Comprar ahora</button>
+      <div class="viewers" id="viewers"></div>
+
+      <div class="pdp-perks" id="perks"></div>
+    </div>
+  </section>
+
+  <!-- Tabs: descripción, especificaciones, reseñas -->
+  <section id="reviews" style="padding-bottom:64px">
+    <div class="tabs" role="tablist">
+      <button class="active" data-tab="desc">Descripción</button>
+      <button data-tab="specs">Especificaciones</button>
+      <button data-tab="rev">Reseñas <span id="revCount" class="muted"></span></button>
+      <button data-tab="ship">Envíos y devoluciones</button>
+    </div>
+    <div class="tab-panel active" id="tab-desc"></div>
+    <div class="tab-panel" id="tab-specs"><table class="specs" id="specsTable" style="max-width:720px"></table></div>
+    <div class="tab-panel" id="tab-rev">
+      <div class="reviews-layout">
+        <div>
+          <div class="rating-big" id="ratingBig"></div>
+          <div class="stars" id="ratingStars" style="font-size:1rem"></div>
+          <div class="bars" id="ratingBars"></div>
+          <div class="card">
+            <h4 style="margin-bottom:12px">Escribe una reseña</h4>
+            <form id="reviewForm">
+              <div class="star-input" style="margin-bottom:10px">
+                <input type="radio" name="r" id="r5" value="5" checked><label for="r5">★</label>
+                <input type="radio" name="r" id="r4" value="4"><label for="r4">★</label>
+                <input type="radio" name="r" id="r3" value="3"><label for="r3">★</label>
+                <input type="radio" name="r" id="r2" value="2"><label for="r2">★</label>
+                <input type="radio" name="r" id="r1" value="1"><label for="r1">★</label>
+              </div>
+              <div class="field"><input class="input" name="name" placeholder="Tu nombre" required></div>
+              <div class="field"><input class="input" name="title" placeholder="Título" required></div>
+              <div class="field"><textarea class="input" name="text" placeholder="¿Qué te pareció?" required style="min-height:90px"></textarea></div>
+              <button class="btn btn-primary btn-block btn-sm">Publicar reseña</button>
+            </form>
+          </div>
+        </div>
+        <div id="reviewList"></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-ship" style="max-width:720px">
+      <p><strong>Envío estándar</strong> (3–5 días hábiles): $99 MXN · <strong>Express</strong> (1–2 días): $189 MXN. Gratis en compras desde $999.</p>
+      <p><strong>Devoluciones</strong>: tienes 30 días naturales desde la entrega. Las piezas deben estar sin uso y en su empaque original. Generamos tu guía de retorno sin costo.</p>
+      <p class="muted small">Piezas de edición limitada o personalizadas sólo admiten cambio por defecto de fabricación.</p>
+    </div>
+  </section>
+
+  <section style="padding-bottom:40px">
+    <div class="section-head"><div><span class="eyebrow">También te puede gustar</span><h2>Productos relacionados</h2></div></div>
+    <div class="products-grid" id="related"></div>
+  </section>
+  <section style="padding-bottom:40px" id="alsoWrap" hidden>
+    <div class="section-head"><div><span class="eyebrow">Recomendaciones de compradores</span><h2>Quienes compraron esto también compraron</h2></div></div>
+    <div class="products-grid" id="also"></div>
+  </section>
+  <section style="padding-bottom:40px" id="recentWrap" hidden>
+    <div class="section-head"><div><span class="eyebrow">Historial</span><h2>Vistos recientemente</h2></div></div>
+    <div class="products-grid" id="recent"></div>
+  </section>
+</main>
+
+<!-- Configuración de Supabase (la genera "npm run build" a partir de las variables de entorno) -->
+<script src="assets/js/env.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/images.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/product.js"></script>
+</body>
+</html>

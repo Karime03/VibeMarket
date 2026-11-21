@@ -1,0 +1,14 @@
+{
+  "name": "vibemarket",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VibeMarket — marketplace B2C de marcas emergentes (HTML/CSS/JS + Supabase)",
+  "type": "module",
+  "scripts": {
+    "env": "node scripts/build.mjs --env-only",
+    "dev": "node scripts/build.mjs --env-only && npx -y serve .",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/build.mjs && npx -y serve dist"
+  },
+  "engines": { "node": ">=18" }
+}

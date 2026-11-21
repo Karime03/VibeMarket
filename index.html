@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VibeMarket — Marcas emergentes con alma</title>
+  <meta name="description" content="Marketplace B2C de marcas emergentes mexicanas: moda, hogar, belleza, joyería y papelería de diseño independiente.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="home">
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Nueva temporada · Otoño 2026</span>
+        <h1>Objetos con historia, de marcas que <em>apenas comienzan.</em></h1>
+        <p class="lead">Descubre diseño independiente de marcas emergentes mexicanas. Cada compra impulsa directamente a quien lo crea.</p>
+        <div class="hero-cta">
+          <a href="catalog.html" class="btn btn-primary">Explorar catálogo →</a>
+          <a href="catalog.html?ofertas=1" class="btn btn-outline">Ver ofertas</a>
+        </div>
+        <div class="hero-stats" id="heroStats"></div>
+      </div>
+      <div class="hero-visual" id="heroVisual">
+        <div class="hero-chip" id="heroChip"><span class="ico">✦</span><div><strong>Marcas emergentes</strong><div class="small muted">Diseño independiente mexicano</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BADGES -->
+  <section class="trust-strip" aria-label="Garantías">
+    <div class="container trust-row" id="trustRow"></div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div><span class="eyebrow">Categorías</span><h2>Explora por universo</h2></div>
+        <a href="catalog.html" class="link-arrow">Ver todo el catálogo →</a>
+      </div>
+      <div class="cat-grid" id="catGrid"></div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <div><span class="eyebrow">Seleccionados</span><h2>Favoritos de la comunidad</h2></div>
+        <div class="cat-pills" id="featuredTabs" style="margin:0">
+          <button class="pill active" data-f="popular">Más populares</button>
+          <button class="pill" data-f="new">Novedades</button>
+          <button class="pill" data-f="rated">Mejor calificados</button>
+        </div>
+      </div>
+      <div class="products-grid" id="featuredGrid"></div>
+    </div>
+  </section>
+
+  <!-- RECOMENDADOS (solo compradores con sesión) -->
+  <section class="section" id="recoWrap" style="padding-top:0" hidden>
+    <div class="container">
+      <div class="section-head"><div><span class="eyebrow">Para ti</span><h2 id="recoTitle">Recomendado para ti</h2></div><p class="muted">Basado en tus compras, favoritos y lo que has visto.</p></div>
+      <div class="products-grid" id="recoGrid"></div>
+    </div>
+  </section>
+
+  <!-- DEALS -->
+  <section class="section deals" id="dealsSection">
+    <div class="container deal-banner">
+      <div>
+        <span class="eyebrow">Ofertas de temporada</span>
+        <h2>Hasta 25% en piezas seleccionadas</h2>
+        <p class="muted">Precios especiales por tiempo limitado, directo de las marcas. Cuando se acaban, se acaban.</p>
+        <div class="countdown" id="countdown" aria-live="polite"></div>
+        <a href="catalog.html?ofertas=1" class="btn btn-accent">Comprar ofertas</a>
+      </div>
+      <div class="products-grid" id="dealsGrid"></div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section class="section" id="brandsSection">
+    <div class="container">
+      <div class="section-head">
+        <div><span class="eyebrow">Marcas emergentes</span><h2>Conoce a quienes lo hacen</h2></div>
+        <p class="muted">Seleccionamos cada marca por su diseño, su proceso y su impacto. Sin intermediarios, con comisiones justas.</p>
+      </div>
+      <div class="brands-row" id="brandsRow"></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" id="testiSection" style="background:var(--surface);border-block:1px solid var(--line)">
+    <div class="container">
+      <div class="center" style="margin-bottom:40px"><span class="eyebrow">Reseñas de compradores</span><h2>Lo que dice nuestra comunidad</h2></div>
+      <div class="testimonials" id="testimonials"></div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section">
+    <div class="container">
+      <div class="newsletter">
+        <div>
+          <span class="eyebrow" style="color:#E8B79E">Newsletter</span>
+          <h2>Sé la primera persona en descubrir nuevas marcas</h2>
+          <p>Lanzamientos, historias detrás de cada taller y 15% en tu primera compra. Un correo cada dos semanas, nunca spam.</p>
+        </div>
+        <div>
+          <form class="nl-form" id="nlForm" novalidate>
+            <label for="nlEmail" class="sr-only">Correo electrónico</label>
+            <input type="email" id="nlEmail" placeholder="tu@correo.com" required>
+            <button class="btn btn-accent" type="submit">Suscribirme</button>
+          </form>
+          <div class="nl-prefs">
+            <span>Me interesa:</span>
+            <label><input type="checkbox" checked> Moda</label>
+            <label><input type="checkbox" checked> Hogar</label>
+            <label><input type="checkbox"> Belleza</label>
+            <label><input type="checkbox"> Joyería</label>
+          </div>
+          <p class="small" id="nlMsg" style="margin-top:12px;position:relative;z-index:1"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Configuración de Supabase (la genera "npm run build" a partir de las variables de entorno) -->
+<script src="assets/js/env.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/images.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/home.js"></script>
+</body>
+</html>
