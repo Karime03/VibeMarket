@@ -215,11 +215,11 @@ onReady(() => {
         <form class="card" id="addrForm"><strong>Nueva dirección</strong><div style="margin-top:12px"></div>
           <div class="grid-2"><div class="field"><input class="input" name="label" placeholder="Alias (Oficina)" required></div><div class="field"><input class="input" name="fname" placeholder="Nombre completo" required></div></div>
           <div class="field"><input class="input" name="street" placeholder="Calle y número" required></div>
-          <div class="grid-2"><div class="field"><input class="input" name="colonia" placeholder="Colonia" required></div><div class="field"><input class="input" name="cp" placeholder="C.P." pattern="\\d{5}" required></div></div>
+          <div class="grid-2"><div class="field"><input class="input" name="cp" placeholder="Código postal (rellena lo demás)" inputmode="numeric" maxlength="5" pattern="\\d{5}" required></div><div class="field"><input class="input" name="colonia" placeholder="Colonia" required></div></div>
           <div class="grid-2"><div class="field"><input class="input" name="city" placeholder="Ciudad" required></div><div class="field"><select class="input" name="state" required>${stateOptions()}</select></div></div>
           <button class="btn btn-outline btn-sm">Agregar dirección</button></form>
       </div>`;
-    $('#addrForm [name=cp]').addEventListener('input', e => { const st = stateFromCP(e.target.value); if (e.target.value.length === 5 && st) $('#addrForm [name=state]').value = st; });
+    PostalCodes.attach({ cp: '#addrForm [name=cp]', colonia: '#addrForm [name=colonia]', city: '#addrForm [name=city]', state: '#addrForm [name=state]' });
     $('#addrForm').onsubmit = e => { e.preventDefault(); list.push({ lname: '', ...Object.fromEntries(new FormData(e.target)) }); Store.set(key, list); toast('Dirección agregada'); addresses(); };
     $$('[data-del]', $('#p-addresses')).forEach(b => b.onclick = () => { list.splice(+b.dataset.del, 1); Store.set(key, list); addresses(); });
     $$('[data-def]', $('#p-addresses')).forEach(b => b.onclick = () => { const [a] = list.splice(+b.dataset.def, 1); list.unshift(a); Store.set(key, list); addresses(); });

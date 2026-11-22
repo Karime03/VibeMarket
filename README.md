@@ -88,3 +88,10 @@ vibemarket/
 | `4000 0000 0000 9995` | ❌ Fondos insuficientes |
 
 Cualquier fecha futura y CVC de 3 dígitos. Más casos en `docs/DEPLOY.md`.
+
+## Autocompletar dirección por código postal
+
+En el checkout y en *Mi cuenta › Direcciones*, al escribir los 5 dígitos del C.P. se rellenan **estado, ciudad/municipio y colonia** (si el C.P. tiene varias colonias aparece una lista para elegir). Archivo: `assets/js/postal.js`.
+
+- Fuente: Catálogo Nacional de Códigos Postales de **Correos de México (SEPOMEX)**, consultado desde el navegador a través de la API pública y gratuita [Sepomex de Icalia Labs](https://github.com/IcaliaLabs/sepomex) (MIT, sin clave). La tienda no copia ni redistribuye el catálogo.
+- Si la API no responde, el estado se deduce del C.P. y el comprador escribe el resto: la compra nunca se bloquea.

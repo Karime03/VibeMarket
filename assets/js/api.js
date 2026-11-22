@@ -338,7 +338,10 @@ const Auth = {
     if (MODE === 'supabase') {
       const { pass, email, ...meta } = data;
       const { data: res, error } = await SUPA.auth.signUp({ email: email.trim(), password: pass, options: { data: meta, emailRedirectTo: location.origin + '/login.html?role=' + data.role } });
-      if (error) return { ok: false, msg: /registered|exists/i.test(error.message) ? 'Ya existe una cuenta con ese correo' : error.message };
+      if (error) return { ok: false, msg: /registered|exists/i.test(error.message) ? 'Ya existe una cuenta con ese correo'
+        : /rate limit/i.test(error.message) ? 'Supabase bloqueó el registro por exceso de correos de confirmación. El administrador debe desactivar "Confirm email" en Supabase (Authentication › Sign In / Providers › Email) o esperar una hora.'
+        : /password/i.test(error.message) ? 'La contraseña no cumple los requisitos de seguridad (mínimo 6 caracteres).'
+        : error.message };
       if (res.user && Array.isArray(res.user.identities) && res.user.identities.length === 0) return { ok: false, msg: 'Ya existe una cuenta con ese correo' };
       if (!res.session) return { ok: true, needsConfirm: true };
       return this.login(email, pass, data.role);

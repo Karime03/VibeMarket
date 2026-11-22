@@ -643,6 +643,13 @@ create policy contact_admin_update on public.contact_messages for update using (
 create policy contact_admin_delete on public.contact_messages for delete using (public.is_admin());
 create policy newsletter_admin on public.newsletter_subscribers for select using (public.is_admin());
 
+-- Permisos de la API (por si el proyecto se creó sin "conceder acceso a nuevas tablas automáticamente").
+-- Es seguro: RLS (arriba) decide qué filas puede ver o modificar cada rol.
+grant usage on schema public to anon, authenticated;
+grant select, insert, update, delete on all tables in schema public to anon, authenticated;
+grant usage, select on all sequences in schema public to anon, authenticated;
+grant execute on all functions in schema public to anon, authenticated;
+
 -- Permisos de ejecución de funciones públicas
 grant execute on function public.admin_exists() to anon, authenticated;
 grant execute on function public.place_order(jsonb) to anon, authenticated;

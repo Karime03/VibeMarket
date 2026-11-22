@@ -818,3 +818,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85em; 
 .footer-contact a { display: flex; align-items: center; gap: 8px; }
 .channel { flex-wrap: wrap; }
 .channel .small { overflow-wrap: break-word; word-break: normal; }
+
+/* Autocompletar por C.P. */
+.cp-status{display:block;margin-top:6px;font-size:12.5px;line-height:1.35;min-height:0}
+.cp-status.ok{color:var(--forest,#2F4A3A)}
+.cp-status.warn{color:var(--terracotta,#B8643F)}

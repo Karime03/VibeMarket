@@ -24,7 +24,7 @@ onReady(() => {
       const prof = Auth.profile(); if (prof && prof.phone) $('#phone').value = prof.phone;
       const addr = Store.get('addresses_' + u.id, [])[0];
       if (addr) Object.entries({ fname: addr.fname, lname: addr.lname, street: addr.street, cp: addr.cp, colonia: addr.colonia, city: addr.city, state: addr.state }).forEach(([k, v]) => { if ($('#' + k) && v) $('#' + k).value = v; });
-      if ($('#cp').value.length === 5) quote($('#cp').value);
+      if ($('#cp').value.length === 5) { quote($('#cp').value); window.__postal?.refresh(); }
       $('#coLogout').onclick = () => { Auth.logout(); applyUser(); };
     }
   };
@@ -53,15 +53,13 @@ onReady(() => {
     } catch (err) { $('#coShip').innerHTML = `<p class="msg-inline err">${err.message}</p>`; shipping = null; }
     renderSummary();
   }
+  // Al escribir el C.P. se rellenan colonia, ciudad y estado (catálogo SEPOMEX)
+  const postal = window.__postal = PostalCodes.attach({ cp: '#cp', colonia: '#colonia', city: '#city', state: '#state' });
   $('#cp').addEventListener('input', e => {
-    e.target.value = e.target.value.replace(/\D/g, '');
-    if (e.target.value.length === 5) {
-      const st = stateFromCP(e.target.value);
-      if (st && (!stateTouched || !$('#state').value)) { $('#state').value = st; $('#state').classList.remove('invalid'); }
-      quote(e.target.value);
-    }
+    if (e.target.value.length === 5) quote(e.target.value);
   });
-  if (shipping?.cp) { $('#cp').value = shipping.cp; quote(shipping.cp); }
+  if (shipping?.cp && !$('#cp').value) { $('#cp').value = shipping.cp; quote(shipping.cp); }
+  if (/^\d{5}$/.test($('#cp').value)) postal.refresh();
 
   // ---------- Resumen ----------
   $('#coItems').innerHTML = Cart.items().map(it => { const p = getProduct(it.id); return `<div class="co-item"><div class="thumb"><img src="${productImage(p, it.color)}" alt=""><span class="q">${it.qty}</span></div><div><div style="font-weight:500">${p.name}</div><div class="small muted">${C[it.color].name} · ${it.size}</div></div><span class="price">${moneyShort(p.price * it.qty)}</span></div>`; }).join('');
@@ -160,14 +158,15 @@ onReady(() => {
     e.preventDefault();
     $$('.input.invalid').forEach(i => i.classList.remove('invalid'));
     const req = ['email', 'phone', 'fname', 'lname', 'street', 'cp', 'colonia', 'city', 'state'];
-    const bad = req.filter(id => { const el = $('#' + id); if (el.closest('.field')?.hidden) return false; const v = el.value.trim();
+    const bad = req.filter(id => { let el = $('#' + id); if (el.closest('.field')?.hidden) return false; if (el.hidden && el.previousElementSibling?.tagName === 'SELECT') el = el.previousElementSibling; const v = el.value.trim();
       if (!v) return true;
       if (id === 'email') return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
       if (id === 'phone') return v.replace(/\D/g, '').length < 10;
       if (id === 'cp') return !/^\d{5}$/.test(v);
       return false; });
-    bad.forEach(id => $('#' + id).classList.add('invalid'));
-    if (bad.length) { $('#coError').textContent = 'Revisa los campos marcados en rojo.'; $('#' + bad[0]).focus(); return; }
+    const fieldOf = id => { const el = $('#' + id); return el.hidden && el.previousElementSibling?.tagName === 'SELECT' ? el.previousElementSibling : el; };
+    bad.forEach(id => fieldOf(id).classList.add('invalid'));
+    if (bad.length) { $('#coError').textContent = 'Revisa los campos marcados en rojo.'; fieldOf(bad[0]).focus(); return; }
     if (!shipping) { $('#coError').textContent = 'Selecciona un método de envío.'; return; }
     if (!$('#terms').checked) { $('#coError').textContent = 'Debes aceptar los términos para continuar.'; return; }
     $('#coError').textContent = '';
